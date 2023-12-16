@@ -1,12 +1,14 @@
 [tool.poetry]
 name = "pyweb-hw-08"
 version = "0.1.0"
-description = ""
+description = "GoIT PythonWeb Homework-08"
 authors = ["Spica12 <vitaly.savenko12@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+mongoengine = "^0.27.0"
+configparser = "^6.0.0"
 
 
 [build-system]
