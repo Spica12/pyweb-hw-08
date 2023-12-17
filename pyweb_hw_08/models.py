@@ -8,6 +8,7 @@ from mongoengine import (
 )
 import configparser
 import pathlib
+from bson import json_util
 
 file_config = (
     pathlib.Path(__file__).parent.parent.joinpath("configs").joinpath("config.ini")
@@ -23,7 +24,8 @@ uri = f"mongodb+srv://{user}:{password}@cluster0.ae7t2cd.mongodb.net/?retryWrite
 print(uri)
 
 connect(db=db, host=uri)
-print('Connected')
+print("Connected")
+
 
 class Author(Document):
     fullname = StringField(required=True, unique=True)
@@ -40,3 +42,8 @@ class Quote(Document):
     quote = StringField()
 
     meta = {"collection": "qoutes"}
+
+    def to_json(self, *args, **kwargs):
+        data = self.to_mongo(*args, **kwargs)
+        data["author"] = self.author.fullname
+        return json_util.dumps(data, ensure_ascii=False)
