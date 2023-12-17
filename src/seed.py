@@ -1,9 +1,23 @@
 from models import Author, Quote
 from mongoengine import NotUniqueError
 import json
+import pathlib
 
-if __name__ == "__main__":
-    with open("authors.json") as file:
+BASE_DIR = pathlib.Path(__file__).parent.parent.joinpath("data")
+
+
+def delete_collections(model):
+    collection = model.objects()
+
+    for el in collection:
+        object = model.objects(id=el.id).delete()
+
+
+def seed_authors_from_json():
+    file_name = "authors.json"
+    file_path = BASE_DIR / file_name
+
+    with open(file_path) as file:
         data = json.load(file)
         for el in data:
             try:
@@ -17,8 +31,12 @@ if __name__ == "__main__":
             except NotUniqueError:
                 print(f"Author {el.get('fullname')} exists.")
 
-    # with open("qoutes.json", "r", encoding="utf-8") as file:
-    with open("qoutes.json") as file:
+
+def seed_qoutes_from_json():
+    file_name = "quotes.json"
+    file_path = BASE_DIR / file_name
+
+    with open(file_path) as file:
         data = json.load(file)
         for el in data:
             author, *_ = Author.objects(fullname=el.get("author"))
@@ -29,3 +47,14 @@ if __name__ == "__main__":
             )
 
             qoute.save()
+
+
+if __name__ == "__main__":
+    # Видалити усіх авторів, а з ними і цитати з БД
+    delete_collections(Author)
+
+    # Добавити авторів з json файлу
+    seed_authors_from_json()
+
+    # Добавити цитати з json файлу
+    seed_qoutes_from_json()

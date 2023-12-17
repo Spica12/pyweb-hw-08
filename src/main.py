@@ -29,11 +29,8 @@ def find_by_authors(author: str) -> list[str | None]:
 
 
 if __name__ == "__main__":
-    pprint(find_by_tag("li"))
-    pprint(find_by_tag("li"))
-
-    pprint(find_by_authors("er"))
-    pprint(find_by_authors("er"))
+    # pprint(find_by_tag("li"))
+    # pprint(find_by_authors("er"))
 
     quotes = Quote.objects().all()
     pprint([quote.to_json() for quote in quotes])
