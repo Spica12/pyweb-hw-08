@@ -16,4 +16,4 @@ def test_find_by_tag_exist_in_db():
 
 
 def test_find_by_tag_not_exist_in_db():
-    assert find_by_tag("as") == []
+    assert find_by_tag("ag") == []
