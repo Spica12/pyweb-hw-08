@@ -116,6 +116,66 @@ def test_find_by_tag(tag, expect_result):
 
 
 @pytest.mark.parametrize(
+    "tag, expect_result",
+    [
+        (
+            "Albert Einstein",
+            {
+                "Albert Einstein": [
+                    "“The world as we have created it is a process of our "
+                    "thinking. It cannot be changed without changing our "
+                    "thinking.”",
+                    "“There are only two ways to live your life. One is as "
+                    "though nothing is a miracle. The other is as though "
+                    "everything is a miracle.”",
+                    "“Try not to become a man of success. Rather become a man "
+                    "of value.”",
+                ]
+            },
+        ),
+        (
+            "Al",
+            {
+                "Albert Einstein": [
+                    "“The world as we have created it is a process of our "
+                    "thinking. It cannot be changed without changing our "
+                    "thinking.”",
+                    "“There are only two ways to live your life. One is as "
+                    "though nothing is a miracle. The other is as though "
+                    "everything is a miracle.”",
+                    "“Try not to become a man of success. Rather become a man "
+                    "of value.”",
+                ]
+            },
+        ),
+        (
+            "Steve Martin",
+            {
+                "Steve Martin": [
+                    "“A day without sunshine is like, you know, night.”",
+                ]
+            },
+        ),
+        (
+            "tin",
+            {
+                "Steve Martin": [
+                    "“A day without sunshine is like, you know, night.”",
+                ]
+            },
+        ),
+        (
+            "lkjh",
+            {},
+        ),
+    ],
+)
+def test_find_by_authors(tag, expect_result):
+    result = find_by_authors(tag)
+    assert result == expect_result
+
+
+@pytest.mark.parametrize(
     "tags, expect_result",
     [
         (

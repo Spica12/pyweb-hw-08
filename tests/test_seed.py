@@ -48,3 +48,6 @@ def test_delete_collections_authors():
     collection = model.objects()
     print("Result: ", collection, type(collection))
     assert str(collection) == "[]"
+
+
+

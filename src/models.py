@@ -4,6 +4,7 @@ from mongoengine import (
     StringField,
     ReferenceField,
     ListField,
+    BooleanField,
     CASCADE,
 )
 import configparser
@@ -47,3 +48,9 @@ class Quote(Document):
         data = self.to_mongo(*args, **kwargs)
         data["author"] = self.author.fullname
         return json_util.dumps(data, ensure_ascii=False)
+
+
+class Contact(Document):
+    fullname = StringField(required=True, unique=True)
+    email = StringField(required=True)
+    is_delivery = BooleanField(default=False)
