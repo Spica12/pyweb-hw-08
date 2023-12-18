@@ -4,7 +4,7 @@ import sys
 import time
 
 import pika
-from producer import queue, fake
+from producer import queue_sms
 from models import Contact
 
 
@@ -16,7 +16,7 @@ def main():
     )
     channel = connection.channel()
 
-    channel.queue_declare(queue=queue, durable=True)
+    channel.queue_declare(queue=queue_sms, durable=True)
 
     def callback(ch, method, properties, body):
         pk = body.decode()
@@ -33,7 +33,7 @@ def main():
 
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(
-        queue=queue,
+        queue=queue_sms,
         on_message_callback=callback,
     )
 

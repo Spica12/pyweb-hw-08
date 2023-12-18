@@ -53,4 +53,6 @@ class Quote(Document):
 class Contact(Document):
     fullname = StringField(required=True, unique=True)
     email = StringField(required=True)
+    phone = StringField(required=True)
+    type_of_delivery = StringField(required=True)
     is_delivery = BooleanField(default=False)
